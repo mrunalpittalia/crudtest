@@ -47,4 +47,19 @@ class Company extends Model
         return $this->hasMany(Employee::class, 'company_id', 'company_id');
     }
 
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+        
+        static::deleting(function($company) {
+            foreach ($company->employees()->get() as $employee) {
+               $employee->delete();
+            }
+        });
+    }
 }

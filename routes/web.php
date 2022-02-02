@@ -21,3 +21,4 @@ Route::get('/', function () {
 Route::resource('company', CompanyController::class)->except(['show']);
 Route::resource('employee', EmployeeController::class)->except(['show']);
 Route::get('company_ajax', [CompanyController::class, 'company_ajax'])->name('company.company_ajax');
+Route::get('employee_ajax', [EmployeeController::class, 'employee_ajax'])->name('employee.employee_ajax');

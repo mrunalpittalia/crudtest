@@ -24,6 +24,12 @@ class CompanyController extends Controller
         ));
     }
 
+    /**
+     * An AJAX function to return list of companies in json format.
+     *
+     * @param Request $request
+     * @return void
+     */
     public function company_ajax(Request $request)
     {
         if($request->ajax()){
@@ -98,7 +104,7 @@ class CompanyController extends Controller
      */
     public function store(UpdateCompany $request)
     {
-        $post_data = $request->all();
+        $post_data = $request->vallidated();
 
         try {
             company::create($post_data);
@@ -115,17 +121,6 @@ class CompanyController extends Controller
         $sys_messages[] = trans('messages.company_create_success_msg');
         session(['sys_messages.success' => $sys_messages]);
         return redirect()->route('company.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Company  $company
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Company $company)
-    {
-        //
     }
 
     /**
